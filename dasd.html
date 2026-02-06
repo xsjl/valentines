@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Will you be my Valentine?</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: #ffffff;
+      font-family: Arial, Helvetica, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #000;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .image-container {
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+
+    img {
+      width: 260px;
+      height: auto;
+      border-radius: 16px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+    }
+
+    .heart {
+      position: absolute;
+      font-size: 2.2rem;
+      pointer-events: none;
+      animation: float 5s infinite ease-in-out;
+      color: #ff69b4;
+    }
+
+    .heart:nth-child(1) { top: -15px; left: 15%; animation-delay: 0s; }
+    .heart:nth-child(2) { top: -5px; left: 50%; animation-delay: 1s; }
+    .heart:nth-child(3) { top: -10px; right: 15%; animation-delay: 2s; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) scale(1); opacity: 1; }
+      50%      { transform: translateY(-30px) scale(1.2); opacity: 0.75; }
+    }
+
+    h1 {
+      font-size: 2.6rem;
+      margin: 0.5rem 0 2rem;
+      font-weight: normal;
+      line-height: 1.1;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 4rem;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      width: 90%;
+      max-width: 700px;
+    }
+
+    button {
+      font-size: 1.7rem;
+      font-weight: bold;
+      padding: 1rem 3.5rem;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      min-width: 140px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+    }
+
+    #yes {
+      background: #4caf50; /* solid green */
+      color: white;
+    }
+
+    #yes:hover {
+      transform: scale(1.05) translateY(-3px);
+      box-shadow: 0 8px 20px rgba(76,175,80,0.4);
+    }
+
+    #no {
+      background: #f44336; /* solid red */
+      color: white;
+    }
+
+    #no:hover {
+      transform: scale(1.05) translateY(-3px);
+      box-shadow: 0 8px 20px rgba(244,67,54,0.4);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="image-container">
+    <!-- Replace with your Pancham + Wooloo image URL -->
+    <img src="https://i.imgur.com/rXSnU2V.jpeg">
+    
+    <div class="heart">❤️</div>
+    <div class="heart">💕</div>
+    <div class="heart">💗</div>
+  </div>
+
+  <h1>Will you be my Valentine?</h1>
+
+  <div class="buttons">
+    <button id="yes">Yes</button>
+    <button id="no">No</button>
+  </div>
+
+  <script>
+    const yesBtn = document.getElementById('yes');
+    const noBtn = document.getElementById('no');
+    let noCount = 0;
+
+    const noMessages = [
+      "No",
+      "Are you sure?",
+      "Really?",
+      "Think again!",
+      "Please? 🥺",
+      "You're breaking my heart...",
+      "Come on...",
+      "Last chance!",
+      "Okay... 😢",
+      "STOP CLICKING NO!"
+    ];
+
+    noBtn.addEventListener('click', () => {
+      noCount++;
+
+      // Update No text
+      noBtn.textContent = noMessages[noCount] || noMessages[noMessages.length - 1];
+
+      // Grow Yes bigger (overtakes space)
+      const scale = 1 + noCount * 0.55;
+      yesBtn.style.transform = `scale(${scale})`;
+      yesBtn.style.padding = `${1 + noCount * 0.5}rem ${3.5 + noCount * 1.5}rem`;
+      yesBtn.style.fontSize = `${1.7 + noCount * 0.6}rem`;
+
+      // After enough clicks → Yes dominates, hide No
+      if (noCount >= 7) {
+        noBtn.style.display = 'none';
+        yesBtn.style.padding = '1.8rem 7rem';
+        yesBtn.style.fontSize = '4rem';
+        yesBtn.style.margin = '1rem auto';
+        document.querySelector('h1').textContent = "No escape now... 😘";
+        document.querySelector('.buttons').style.gap = '0';
+      }
+    });
+
+    yesBtn.addEventListener('click', () => {
+      document.body.innerHTML = `
+        <div style="font-size: 5.5rem; color: #e91e63; padding: 2rem; line-height: 1.1;">
+          YAYYYY!!! 💖💖💖
+        </div>
+        <div style="font-size: 3rem; color: #e91e63; margin-top: 1rem;">
+          You're my Valentine! ♡
+        </div>
+      `;
+      document.body.style.background = '#fff0f5'; // light pink celebration
+    });
+  </script>
+
+</body>
+</html>
